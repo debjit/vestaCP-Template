@@ -1,4 +1,4 @@
-#this setting is working for subdomain as 25-may-2018
+
 map $uri $blogname{
     ~^(?P<blogpath>/[^/]+/)files/(.*)       $blogpath ;
 }
@@ -9,7 +9,7 @@ map $blogname $blogid{
     #Ref: http://wordpress.org/extend/plugins/nginx-helper/
     #include /var/www/wordpress/wp-content/plugins/nginx-helper/map.conf ;
 }
-#end
+
 server {
     listen      %ip%:%web_ssl_port%;
     server_name %domain_idn% %alias_idn%;
@@ -23,7 +23,7 @@ server {
     ssl_certificate      %ssl_pem%;
     ssl_certificate_key  %ssl_key%;
 	
-	#MSS
+
  location ~ ^(/[^/]+/)?files/(.+) {
         try_files /wp-content/blogs.dir/$blogid/files/$2 /wp-includes/ms-files.php?file=$2 ;
         access_log off;     log_not_found off; expires max;
@@ -41,7 +41,7 @@ server {
         rewrite ^(/[^/]+)?(/wp-.*) $2 last;
         rewrite ^(/[^/]+)?(/.*\.php) $2 last;
     }
-#END
+
     
 
     location = /favicon.ico {
